@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Comet4J Hello World</title>
+<script type="text/javascript" src="js/comet4j.js"></script>
+<script type="text/javascript">
+	function getMeasureValue(comPort) {
+		var kbDom = document.getElementById('kb');
+		alert('COM Port: ' + comPort.value);
+		
+		JS.Engine.on({
+			hello : function(kb) {//侦听一个channel
+				//var freeMemory = kb.freeMemory;
+				//alert(kb.COM1);
+				//alert(kb.COM2);
+				//alert(kb.COM3);
+				var json = eval("(" + kb + ")");
+				if(comPort.value == 'COM1') {
+					//alert('COM1: ' + comPort.value);
+					kbDom.innerHTML = 'COM1: ' + json.COM1;
+				} else if(comPort.value == 'COM2') {
+					//alert('COM2: ' + comPort.value);
+					kbDom.innerHTML = 'COM2: ' + json.COM2;
+				} else if(comPort.value == 'COM3') {
+					//alert('COM3: ' + comPort.value);
+					kbDom.innerHTML = 'COM3: ' + json.COM3;
+				}
+			}
+		});
+		JS.Engine.start('conn');	
+	}
+
+</script>
+</head>
+<body>
+	剩余内存：
+	<span id="kb">...............</span>KB <br />
+	<form method="post" action="">
+		<select name="">
+			<option value="COM1" onclick="getMeasureValue(this)"
+				selected="selected">COM1</option>
+			<option value="COM2" onclick="getMeasureValue(this)">COM2</option>
+			<option value="COM3" onclick="getMeasureValue(this)">COM3</option>
+		</select>
+	</form>
+</body>
+</html>
